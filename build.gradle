@@ -2,12 +2,16 @@ buildscript {
     repositories {
         mavenCentral()
     }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
+    }
 }
 
 plugins {
     id 'java-library'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.10.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.10'
 }
 
 group = "de.bwaldvogel"
@@ -36,21 +40,8 @@ repositories {
     mavenCentral()
 }
 
-jacocoTestReport {
-    reports {
-        html.enabled = true
-        xml.enabled = true
-        csv.enabled = false
-    }
-    dependsOn test
-}
-
-wrapper {
-    gradleVersion = "6.7.1"
-    distributionType = Wrapper.DistributionType.ALL
-}
-
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.10"
     testImplementation group: 'junit', name: 'junit', version: 'latest.release'
     testImplementation group: 'org.slf4j', name: 'slf4j-api', version: 'latest.release'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: 'latest.release'
@@ -65,8 +56,4 @@ dependencies {
             details.status = 'release'
         }
     }
-}
-
-dependencyLocking {
-    lockAllConfigurations()
 }
