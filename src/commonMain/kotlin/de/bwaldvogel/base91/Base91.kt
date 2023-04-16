@@ -43,17 +43,17 @@ import java.nio.charset.StandardCharsets
  * @author Benedikt Waldvogel (Modifications)
  */
 object Base91 {
-    @JvmField
     val ENCODING_TABLE: ByteArray =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~\""
-            .toByteArray(StandardCharsets.ISO_8859_1)
+            .toByteArray(StandardCharsets.US_ASCII)
     private val DECODING_TABLE: ByteArray = ByteArray(256) { -1 }
-    @JvmField
     val BASE = ENCODING_TABLE.size
     private const val AVERAGE_ENCODING_RATIO = 1.2297f
 
     init {
-        for (i in 0 until BASE) DECODING_TABLE[ENCODING_TABLE[i].toInt()] = i.toByte()
+        for (i in 0 until BASE) {
+            DECODING_TABLE[ENCODING_TABLE[i].toInt()] = i.toByte()
+        }
     }
 
     @JvmStatic
